@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+        integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+
+<body>
+    <div id="app">
+        <!-- ================= NAVBAR ================= -->
+        <nav class="fixed top-0 left-0 w-full z-50">
+            <!-- LOGO -->
+            <div class="bg-fuchsia-800 flex justify-between items-center px-10 py-5">
+                <img class="w-40 h-10"
+                    src="https://www.samourai.com/wp-content/uploads/2026/07/main_logo_drower.png?1790818761" alt=""
+                    srcset="">
+
+                <!-- DESkTOP -->
+
+                <div class="hidden md:flex items-center gap-2 lg:gap-5">
+                    <p @click="page='home'"
+                        class="text-white font-semibold px-3 py-1 rounded-xl cursor-pointer hover:bg-fuchsia-300"
+                        href="">Home</p>
+                    <p @click="page='product'"
+                        class="text-white font-semibold px-3 py-1 rounded-xl cursor-pointer hover:bg-fuchsia-300"
+                        href="">Fragrances
+                    </p>
+                    <p @click="page='about'"
+                        class="text-white font-semibold px-3 py-1 rounded-xl cursor-pointer hover:bg-fuchsia-300"
+                        href="">About</p>
+
+                    <p @click="page = 'contact'"
+                        class="text-white font-semibold px-3 py-1 rounded-xl cursor-pointer hover:bg-fuchsia-300"
+                        href="">Contact</p>
+                </div>
+                <!-- DESKTOP ICONS -->
+                <div class="hidden md:flex items-center gap-5">
+                    <i class="fa-solid fa-magnifying-glass text-white"></i>
+                    <button @click="page='cart'">
+                        <i @click="page='cart'" class="fa-solid fa-cart-shopping text-white flex items-center cursor-pointer gap-1"></i>
+
+                            <span class=" bg-red-500 rounded-full px-2 py-1 text-xs text-white cursor-pointer">
+                            {{ cart.length }}
+                            </span>
+                    </button>
+                    <i class="fa-regular fa-user text-white"></i>
+                </div>
+
+                <!-- MOBILE MENU BUTTON -->
+
+                <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white text-2xl">
+                    <i :class="mobileMenu
+                        ? 'fa-solid fa-xmark'
+                        : 'fa-solid fa-bars'"></i>
+                </button>
+
+                <!-- MOBILE MENU -->
+
+                <div v-if="mobileMenu" class="md:hidden mt-4 border-t border-fuchsia-600 pt-4">
+
+                    <div class="flex flex-col gap-2">
+
+                        <p @click="navigate('home')"
+                            class="text-white text-left px-4 py-3 rounded-lg hover:bg-fuchsia-600">
+                            <i class="fa-solid fa-house mr-3"></i>
+                            Home
+                        </p>
+
+                        <p @click="navigate('product')"
+                            class="text-white text-left px-4 py-3 rounded-lg hover:bg-fuchsia-600">
+                            <i class="fa-solid fa-spray-can-sparkles mr-3"></i>
+                            Fragrances
+                        </p>
+
+                        <p @click="navigate('about')"
+                            class="text-white text-left px-4 py-3 rounded-lg hover:bg-fuchsia-600">
+                            <i class="fa-solid fa-circle-info mr-3"></i>
+                            About
+                        </p>
+
+                        <p @click="navigate('contact')"
+                            class="text-white text-left px-4 py-3 rounded-lg hover:bg-fuchsia-600">
+                            <i class="fa-solid fa-envelope mr-3"></i>
+                            Contact
+                        </p>
+
+                        <p @click="navigate('cart')"
+                            class="text-white text-left px-4 py-3 rounded-lg hover:bg-fuchsia-600">
+                            <i class="fa-solid fa-cart-shopping mr-3"></i>
+                            Cart
+
+                            <span class="bg-red-500 rounded-full px-2 py-1 text-xs ml-2">
+                                {{ cart.length }}
+                            </span>
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+
+
+        <!-- HOME SECTION -->
+        <section v-if="page==='home'" class="bg-[#D566DF]/40 pt-24 sm:pt-28">
+
+            <div class="max-w-7xl mx-auto min-h-[70vh]
+                flex flex-col lg:flex-row
+                justify-center items-center
+                gap-6 sm:gap-10
+                px-5 sm:px-8 lg:px-10
+                py-10 sm:py-16">
+
+                <div class="w-full lg:w-1/2 flex justify-center">
+                    <img src="Screenshot_2026-10-01_103158-removebg-preview.png" alt="" class="w-full max-w-sm sm:max-w-md lg:max-w-lg
+                        h-auto object-contain">
+                </div>
+
+                <div class="w-full lg:w-1/2 flex justify-center">
+                    <img src="Screenshot_2026-10-01_095819-removebg-preview (1).png" alt="" class="w-full max-w-sm sm:max-w-md lg:max-w-xl
+                        h-auto object-contain">>
+
+                </div>
+            </div>
+
+            <!-- SIGNATURE FRAGRANCES -->
+
+            <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pb-16">
+
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl 
+                text-center font-bold">
+                    Explore Our Signature Fragrances
+                </h1>
+
+
+                <div class="grid grid-cols-1
+                    sm:grid-cols-2
+                    lg:grid-cols-4
+                    gap-5 sm:gap-6
+                    mt-10 sm:mt-14">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyo0MqGvDUi7C47IRsBsG_igLd5mDNR-vAwmIXFtWENQ&s=10"
+                        alt="" class="w-full  rounded-lg hover:scale-105 transition duration-300">
+
+                    <img src="https://img.lazcdn.com/g/ff/kf/Sec2aa8b5afc34e02945768ee03542bbbL.jpg_720x720q80.jpg"
+                        alt=""class="w-full  rounded-lg hover:scale-105 transition duration-300">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGX-R9CV7Hm3zHlLeNZvtNNEFKw_Ga9GoMncJ-hnqjdw&s=10"
+                        alt="" class="w-full  rounded-lg hover:scale-105 transition duration-300">
+
+                    <img src="https://www.essenciasjapan.com/cdn/shop/files/e4213e243da9497baffb3e0db8a3f167_2025111616546_1200x.jpg?v=1763828479"
+                        alt="" class="w-full  rounded-lg hover:scale-105 transition duration-300">
+                </div>
+
+
+            </div>
+
+        </section>
+
+        <!-- FRAGRANCES SECTION -->
+        <section v-if="page === 'product'" class="pt-28 pb-16 px-4 sm:px-6 lg:px-10">
+
+            <div class="max-w-7xl mx-auto">
+
+                <h1 class="text-center font-bold
+                    text-2xl sm:text-3xl lg:text-4xl
+                    my-8">
+                    Fragrances
+                </h1>
+
+
+                <div class="max-w-3xl mx-auto text-center space-y-2 mb-10">
+
+                    <p>
+                        Something that conveys a person’s true self
+                        before words even begin to speak.
+                    </p>
+
+                    <p>
+                        Here you’ll find fragrances born from the world
+                        of SAMOURAI and Samourai Woman.
+                    </p>
+
+                    <p>
+                        Choose according to your mood, the season,
+                        or how you feel that day.
+                    </p>
+
+                </div>
+
+
+                <!-- PRODUCTS -->
+
+                <div class="grid grid-cols-1
+                    sm:grid-cols-2
+                    lg:grid-cols-3
+                    xl:grid-cols-4
+                    gap-5 sm:gap-6">
+
+                    <div v-for="product in products" :key="product.id" class="border rounded-xl p-4 shadow-sm
+                        hover:shadow-xl transition duration-300
+                        flex flex-col">
+
+                        <img :src="product.img" :alt="product.brand"
+                            class="w-full aspect-square object-cover rounded-lg">
+
+
+                        <div class="space-y-2 mt-4 flex-1">
+
+                            <h2 class="text-xl sm:text-2xl font-bold">
+                                {{ product.brand }}
+                            </h2>
+
+                            <p class="font-semibold italic text-sm sm:text-base">
+                                {{ product.details }}
+                            </p>
+
+                            <p class="font-bold italic">
+                                Price: ₱{{ product.price }}
+                            </p>
+
+                        </div>
+
+
+                        <button @click="Cart(product)" class="mt-4 w-full px-5 py-3
+                            bg-[#5A58AC]
+                            text-white font-bold
+                            hover:bg-blue-500
+                            rounded-lg transition">
+                            <i class="fa-solid fa-cart-plus mr-2"></i>
+                            Add to Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT SECTION -->
+
+        <section v-if="page === 'about'" class="pt-28 pb-16 px-5 sm:px-8 lg:px-10">
+
+            <div class="max-w-6xl mx-auto">
+
+                <h1 class="font-bold text-2xl sm:text-3xl lg:text-4xl
+                    text-center mb-12 sm:mb-16">
+                    ABOUT US
+                </h1>
+
+
+                <div class="grid grid-cols-1
+                    md:grid-cols-2
+                    gap-10 lg:gap-20">
+
+                    <!-- LEFT -->
+
+                    <div>
+
+                        <h2 class="text-2xl sm:text-3xl italic font-semibold">
+                            More Than a Scent,
+                        </h2>
+
+                        <h2 class="text-2xl sm:text-3xl italic font-semibold">
+                            It's a Story
+                        </h2>
+
+                        <div class="h-5"></div>
+
+                        <p class="leading-7 text-gray-700">
+
+                            At Samouraï Samourai Woman Perfume,
+                            we believe that fragrance is more than
+                            just a scent—it’s a reflection of who you
+                            are, your memories, and your dreams.
+
+                            <br><br>
+
+                            Our journey began with a simple vision:
+                            to create luxurious, long lasting perfumes
+                            that inspire confidence and make every
+                            moment special.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- RIGHT -->
+
+                    <div>
+
+                        <h2 class="text-2xl sm:text-3xl italic font-semibold">
+                            Our Story
+                        </h2>
+
+                        <div class="h-5"></div>
+
+                        <p class="leading-7 text-gray-700">
+
+                            Samouraï is a historic and highly popular
+                            fragrance line originally launched in 1995
+                            by the famous French actor Alain Delon.
+
+                            <br><br>
+
+                            Named after Delon’s iconic 1967 film
+                            Le Samouraï, the line was inspired by the
+                            discipline, honor, and strength of the
+                            Japanese warrior.
+
+                        </p>
+
+                        <div class="h-5"></div>
+
+                        <p class="leading-7 text-gray-700">
+
+                            While it originated as a French designer
+                            collection, it evolved into a major
+                            cultural phenomenon in Asia—particularly
+                            in Japan.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CONTACT -->
+        <section v-if="page === 'contact'" class="pt-28 pb-16 px-5 sm:px-8 lg:px-10">
+
+            <div class="max-w-5xl mx-auto">
+
+                <h1 class="font-bold text-2xl sm:text-3xl lg:text-4xl
+                    text-center mb-12">
+                    Contact Us
+                </h1>
+
+
+                <div class="bg-gray-50 rounded-2xl
+                    p-6 sm:p-8 lg:p-10 shadow-sm">
+
+                    <p class="font-bold text-xl sm:text-2xl italic">
+                        We’d Love to Hear From You
+                    </p>
+
+                    <div class="h-5"></div>
+
+                    <p class="leading-7 text-gray-700">
+
+                        Have a question about our fragrances,
+                        want to place an order, or need help
+                        choosing your signature scent?
+
+                        <br>
+
+                        Get in touch with the Samourai Samourai
+                        Woman Perfume team.
+
+                    </p>
+
+                    <div class="h-6"></div>
+
+                    <p class="font-bold text-lg sm:text-xl">
+                        Samourai (SPR Japan) / Alain Delon Fragrances
+                    </p>
+
+                    <div class="h-5"></div>
+
+                    <ul class="list-disc ml-5 space-y-4 text-gray-700">
+
+                        <li>
+                            Email: contact@sprjapan.co.jp
+                        </li>
+
+                        <li>
+                            Online Inquiry Form:
+                            You can send a direct inquiry
+                            on the SPR Japan Contact Page.
+                        </li>
+
+                        <li>
+                            Official Website:
+                            Samourai Official Japan
+                        </li>
+
+                        <li>
+                            Social Media:
+                            Check their Samourai Instagram Account
+                            or Samourai Facebook Page.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CART ITEMS -->
+
+        <section v-if="page === 'cart'" class="pt-28 pb-16 px-4 sm:px-6 lg:px-10">
+
+            <div class="max-w-7xl mx-auto">
+
+                <h1 class="text-center text-2xl sm:text-3xl lg:text-4xl
+                    font-bold mb-10">
+                    Shopping Cart
+                </h1>
+
+
+                <!-- EMPTY -->
+
+                <div v-if="cart.length === 0" class="text-center py-20">
+
+                    <i class="fa-solid fa-cart-shopping
+                        text-5xl text-gray-300 mb-5"></i>
+
+                    <p class="text-xl font-semibold text-gray-500">
+                        Your cart is empty.
+                    </p>
+
+                    <button @click="page='product'" class="mt-5 px-6 py-3
+                        bg-[#5A58AC] text-white
+                        rounded-lg font-bold cursor-pointer
+                        hover:bg-blue-500 transition">
+                        Browse Fragrances
+                    </button>
+
+                </div>
+
+
+                <!-- CART ITEMS -->
+
+                <div v-if="cart.length > 0" class="grid grid-cols-1
+                    sm:grid-cols-2
+                    lg:grid-cols-3
+                    xl:grid-cols-4
+                    gap-5">
+
+                    <div v-for="(items, index) in cart" :key="index" class="border p-4 rounded-xl shadow-sm">
+
+                        <img :src="items.img" :alt="items.brand" class="w-full aspect-square object-cover rounded-lg">
+
+
+                        <div class="space-y-2 mt-4">
+
+                            <h2 class="font-bold">
+                                Brand: {{ items.brand }}
+                            </h2>
+
+                            <p class="font-semibold text-sm">
+                                {{ items.details }}
+                            </p>
+
+                            <p class="font-bold italic">
+                                Price: ₱{{ items.price }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="grid grid-cols-2 gap-2 mt-5">
+
+                            <button @click="checkOut(index)" class="px-3 py-2
+                                bg-[#5A58AC]
+                                hover:bg-blue-500
+                                rounded-lg text-white
+                                font-bold text-sm">
+                                Check-out
+                            </button>
+
+                            <button @click="remove(index)" class="px-3 py-2
+                                bg-gray-600
+                                hover:bg-red-500
+                                rounded-lg text-white
+                                font-bold text-sm">
+                                Remove
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TOTAL -->
+
+                <div v-if="cart.length > 0" class="mt-10 bg-gray-50
+                    rounded-xl p-6 text-center">
+
+                    <h2 class="text-xl sm:text-2xl font-bold">
+                        Total Checkout: ₱{{ totalPurchase }}
+                    </h2>
+
+                    <button @click="purchaseAll()" class="mt-5 px-8 py-3
+                        bg-[#5A58AC]
+                        hover:bg-red-500
+                        rounded-full cursor-pointer
+                        text-white font-bold transition">
+                        Checkout All
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer class="bg-fuchsia-900 text-white mt-auto">
+
+            <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-10 sm:py-14">
+
+                <div class="grid grid-cols-1
+                sm:grid-cols-2
+                lg:grid-cols-3
+                gap-10">
+
+                    <!-- BRAND -->
+
+                    <div>
+
+                        <img src="https://www.samourai.com/wp-content/uploads/2026/07/main_logo_drower.png?1790818761"
+                            alt="Samourai Logo" class="w-36 sm:w-40 h-10 object-contain mb-5">
+
+                        <p class="text-fuchsia-100 leading-7">
+
+                            Discover fragrances that express your
+                            personality, memories, and dreams.
+
+                            <br><br>
+
+                            Find your signature scent with
+                            Samourai and Samourai Woman.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- QUICK LINKS -->
+
+                    <div>
+
+                        <h2 class="text-xl font-bold mb-5">
+                            Quick Links
+                        </h2>
+
+                        <ul class="space-y-3">
+
+                            <li>
+                                <p @click="page='home'" class="hover:text-fuchsia-300 transition cursor-pointer">
+                                    Home
+                                </p>
+                            </li>
+
+                            <li>
+                                <p @click="page='product'" class="hover:text-fuchsia-300 transition cursor-pointer">
+                                    Fragrances
+                                </p>
+                            </li>
+
+                            <li>
+                                <p @click="page='about'" class="hover:text-fuchsia-300 transition cursor-pointer">
+                                    About
+                                </p>
+                            </li>
+
+                            <li>
+                                <p @click="page='contact'" class="hover:text-fuchsia-300 transition cursor-pointer">
+                                    Contact
+                                </p>
+                            </li>
+
+                            <li>
+                                <p @click="page='cart'" class="hover:text-fuchsia-300 transition cursor-pointer">
+                                    Cart ({{ cart.length }})
+                                </p>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- CONTACT -->
+
+                    <div>
+
+                        <h2 class="text-xl font-bold mb-5">
+                            Contact Us
+                        </h2>
+
+                        <div class="space-y-4 text-fuchsia-100">
+
+                            <p class="break-all">
+                                <i class="fa-solid fa-envelope mr-3"></i>
+                                contact@sprjapan.co.jp
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-globe mr-3"></i>
+                                Samourai Official Japan
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-location-dot mr-3"></i>
+                                Japan
+                            </p>
+
+                        </div>
+
+
+                        <!-- SOCIAL -->
+
+                        <div class="flex gap-5 mt-6">
+
+                            <i class="fa-brands fa-facebook text-2xl hover:text-fuchsia-300 transition"></i>
+                            <i class="fa-brands fa-instagram text-2xl hover:text-fuchsia-300 transition"></i>
+                            <i class="fa-brands fa-x-twitter text-2xl hover:text-fuchsia-300 transition"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- COPYRIGHT -->
+
+            <div class="border-t border-fuchsia-700">
+
+                <div class="max-w-7xl mx-auto
+                px-5 sm:px-8 lg:px-10
+                py-5
+                flex flex-col
+                sm:flex-row
+                justify-between
+                items-center
+                text-center sm:text-left
+                gap-3">
+
+                    <p class="text-sm text-fuchsia-200">
+                        Copyright © 2026 UENI Trading LTD., CO.
+                        All Rights Reserved.
+                    </p>
+
+                    <p class="text-sm text-fuchsia-200">
+                        Samourai Fragrances
+                    </p>
+
+                </div>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+
+    <script>
+        Vue.createApp({
+
+            data() {
+
+                return {
+
+                    page: 'home',
+
+                    mobileMenu: false,
+
+                    products: [
+
+                        {
+                            id: 1,
+                            img: 'https://www.samourai.com/wp-content/uploads/2026/07/ad-shadownightetsp-1-600x600.jpg',
+                            brand: 'Samourai',
+                            details: 'A beautiful fragrance, like a shadow cast on moonlit night perfect for a romantic evening',
+                            price: 1299
+                        },
+
+                        {
+                            id: 2,
+                            img: 'https://www.samourai.com/wp-content/uploads/2026/07/ad-ultramountainet-1-600x600.jpg',
+                            brand: 'Samourai',
+                            details: 'A refreshing feeling like taking a deep breath in forest. A hint of spice and warmth.',
+                            price: 1299
+                        },
+
+                        {
+                            id: 3,
+                            img: 'https://www.samourai.com/wp-content/uploads/2026/07/ad-etsp-1-600x600.jpg',
+                            brand: 'Samourai',
+                            details: 'Samourai that have been supported for over a quarter of a century.',
+                            price: 1299
+                        },
+
+                        {
+                            id: 4,
+                            img: 'https://www.samourai.com/wp-content/uploads/2026/07/ad-blacklightetsp-1-600x600.jpg',
+                            brand: 'Samourai',
+                            details: 'Fresh and natural. Cool and clean.',
+                            price: 1299
+                        },
+
+                        {
+                            id: 5,
+                            img: 'https://www.samourai.com/wp-content/uploads/2026/07/ad-samouraiwomanan-1-600x600.jpg',
+                            brand: 'Samourai Woman',
+                            details: 'A lovely, sweet scent of apricot and flowers.',
+                            price: 1299
+                        },
+
+                        {
+                            id: 6,
+                            img: 'https://www.samourai.com/wp-content/uploads/2026/07/ad-samouraiwomanwp-1-600x600.jpg',
+                            brand: 'Samourai Woman',
+                            details: 'A fresh, bursting aroma of white peaches.',
+                            price: 1299
+                        },
+
+                        {
+                            id: 7,
+                            img: 'https://www.samourai.com/wp-content/uploads/2026/07/ad-samouraiwomanwj-1-600x600.jpg',
+                            brand: 'Samourai Woman',
+                            details: 'A fresh and clear jasmine scent.',
+                            price: 1299
+                        },
+
+                        {
+                            id: 8,
+                            img: 'https://www.samourai.com/wp-content/uploads/2026/07/ad-samowomandolce-1-600x600.jpg',
+                            brand: 'Samourai Woman',
+                            details: 'A sweet vanilla scent, like a dessert.',
+                            price: 1299
+                        }
+
+                    ],
+
+                    cart: [],
+
+                    totalPurchase: 0
+
+                }
+
+            },
+
+
+            methods: {
+
+                // MOBILE NAVIGATION
+
+                navigate(page) {
+
+                    this.page = page;
+
+                    this.mobileMenu = false;
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+
+                },
+
+
+                // ADD TO CART
+
+                Cart(product) {
+
+                    this.cart.push(product);
+
+                    this.totalPurchase += product.price;
+
+                    alert('Added successfully!');
+
+                },
+
+
+                // CHECKOUT ONE ITEM
+
+                checkOut(index) {
+
+                    if (!this.cart[index]) return;
+
+                    this.totalPurchase -= this.cart[index].price;
+
+                    this.cart.splice(index, 1);
+
+                    alert('CheckOut Successfully');
+
+                },
+
+
+                // REMOVE ITEM
+
+                remove(index) {
+
+                    if (!this.cart[index]) return;
+
+                    this.totalPurchase -= this.cart[index].price;
+
+                    this.cart.splice(index, 1);
+
+                },
+
+
+                // CHECKOUT ALL
+
+                purchaseAll() {
+
+                    if (this.cart.length === 0) return;
+
+                    alert('Purchase Successfully');
+
+                    this.cart = [];
+
+                    this.totalPurchase = 0;
+
+                }
+
+            }
+
+        }).mount('#app');
+
+
+
+    </script>
+
+</body>
+
+</html>
